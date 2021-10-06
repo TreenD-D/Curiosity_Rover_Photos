@@ -4,7 +4,7 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class RoverManifest(
-    val name: String?,
+    val name: String,
     val landing_date: String?,
     val launch_date: String?,
     val status: String?,

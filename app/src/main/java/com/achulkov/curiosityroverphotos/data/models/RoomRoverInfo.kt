@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class RoomRoverInfo(
-    @PrimaryKey val name: String?,
+    @PrimaryKey val name: String,
     val landing_date: String?,
     val launch_date: String?,
     val status: String?,

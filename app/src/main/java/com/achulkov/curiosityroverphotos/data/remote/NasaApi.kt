@@ -25,12 +25,12 @@ interface NasaApi {
                   @Query("cam") cameraType: RoverCameraType,
                   @Query("page") page: Int,
                   @Query("api_key") key : String = BuildConfig.API_KEY
-    ) : Observable<Response<List<RoverPhoto>>>
+    ) : Observable<List<RoverPhoto>>
 
     /**
      * gets nasa manifst for rover with data about mission
      */
     @GET("manifests/curiosity")
     fun getCuriosityManifest(@Query("api_key") key : String = BuildConfig.API_KEY
-        ) : Observable<Response<RoverManifest>>
+        ) : Observable<RoverManifest>
 }
