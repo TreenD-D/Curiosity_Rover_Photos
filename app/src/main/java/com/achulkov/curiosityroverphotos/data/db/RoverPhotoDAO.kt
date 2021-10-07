@@ -12,7 +12,7 @@ import io.reactivex.rxjava3.core.Single
 
 @Dao
 abstract class RoverPhotoDAO {
-    @Query("SELECT * FROM RoverPhoto")
+    @Query("SELECT * FROM RoverPhoto ORDER BY id DESC")
     abstract fun fetchAll() : Observable<List<RoverPhoto>>
 
     @Query("SELECT * FROM RoverPhoto WHERE id=:id")
@@ -28,6 +28,6 @@ abstract class RoverPhotoDAO {
     @Query("DELETE FROM RoverPhoto")
     abstract fun clearTable()
 
-    @Query("UPDATE RoverPhoto SET isDeleted = :isDeleted WHERE id=:id")
-    abstract fun updateBookStatus(isDeleted: Boolean, id: Int) : Completable
+    @Query("DELETE FROM RoverPhoto WHERE id=:id")
+    abstract fun deleteSingleEntry(id:Int)
 }

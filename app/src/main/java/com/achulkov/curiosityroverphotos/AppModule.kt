@@ -3,7 +3,6 @@ package com.achulkov.curiosityroverphotos
 import android.app.Application
 import android.content.Context
 import android.net.TrafficStats
-import androidx.multidex.BuildConfig
 import com.squareup.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
 import dagger.Module

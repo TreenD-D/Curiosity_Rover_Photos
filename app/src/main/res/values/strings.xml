@@ -3,4 +3,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_results_counter">Total photos: %1$d</string>
+    <string name="id_stub">1024</string>
+    <string name="selected">"Selected: "</string>
+    <string name="remove">Remove</string>
+    <string name="confirmation">Are you sure to remove this photos?</string>
+    <string name="cancel_text">Cancel</string>
 </resources>

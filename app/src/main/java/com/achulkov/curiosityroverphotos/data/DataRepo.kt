@@ -1,9 +1,7 @@
 package com.achulkov.curiosityroverphotos.data
 
-import com.achulkov.curiosityroverphotos.data.models.RoomRoverInfo
-import com.achulkov.curiosityroverphotos.data.models.RoverCameraType
-import com.achulkov.curiosityroverphotos.data.models.RoverManifest
-import com.achulkov.curiosityroverphotos.data.models.RoverPhoto
+import com.achulkov.curiosityroverphotos.data.models.*
+import io.reactivex.rxjava3.annotations.NonNull
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.Response
 
@@ -13,5 +11,10 @@ interface DataRepo {
         sol: Int,
         camtype: RoverCameraType,
         page: Int
-    ): Observable<List<RoverPhoto>>
+    ): Observable<RoverPhotosList>
+
+    fun removePhotos(photos: List<RoverPhoto>): Observable<Unit>
+    fun getDeletedPhotos(): Observable<List<Int>>
+    fun getPhotos(sol: Int, deletedPhotos: List<Int>): Observable<List<RoverPhoto>>
+    fun getDbPhotos(): Observable<List<RoverPhoto>>
 }

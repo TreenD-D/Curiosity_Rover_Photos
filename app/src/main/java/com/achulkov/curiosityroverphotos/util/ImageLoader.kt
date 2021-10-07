@@ -18,5 +18,6 @@ interface ImageLoader {
         fun noPlaceHolder() : ImageRequest
 
         fun centerInside(): ImageRequest
+        fun fit(): ImageRequest
     }
 }

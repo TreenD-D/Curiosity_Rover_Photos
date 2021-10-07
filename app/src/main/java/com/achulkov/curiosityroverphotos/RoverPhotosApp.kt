@@ -2,7 +2,6 @@ package com.achulkov.curiosityroverphotos
 
 import android.app.Application
 import android.os.StrictMode
-import androidx.multidex.BuildConfig
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
@@ -12,7 +11,7 @@ class RoverPhotosApp : Application() {
         super.onCreate()
 
         if (BuildConfig.DEBUG) {
-            StrictMode.enableDefaults()
+//            StrictMode.enableDefaults()
             Timber.plant(Timber.DebugTree())
         }
     }

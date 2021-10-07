@@ -7,5 +7,5 @@ data class RoverSolPhotosInfo(
     val sol: Int?,
     val earth_date: String?,
     val total_photos: Int?,
-    val cameraTypes: List<RoverCameraType>
+    val cameraTypes: List<RoverCameraType>?
 )

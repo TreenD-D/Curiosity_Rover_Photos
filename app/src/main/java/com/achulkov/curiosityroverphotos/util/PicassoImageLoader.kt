@@ -45,6 +45,11 @@ class PicassoImageLoader @Inject constructor(private val picasso: Picasso) : Ima
             return this
         }
 
+        override fun fit() : ImageLoader.ImageRequest {
+            request.fit()
+            return this
+        }
+
         override fun placeholder(imageResource: Int): ImageLoader.ImageRequest {
             request.placeholder(imageResource)
             return this

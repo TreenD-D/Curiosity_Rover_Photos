@@ -51,7 +51,7 @@ abstract class DataModule {
         fun httpClient(executor: ExecutorService, cacheDir : File): OkHttpClient {
             val builder = OkHttpClient.Builder()
             builder.dispatcher(Dispatcher(executor))
-            if (androidx.multidex.BuildConfig.DEBUG) {
+            if (BuildConfig.DEBUG) {
                 val interceptor = HttpLoggingInterceptor()
                 interceptor.level = HttpLoggingInterceptor.Level.BODY
                 builder.addInterceptor(interceptor)
@@ -78,7 +78,6 @@ abstract class DataModule {
                     val request: Request = chain.request()
                     return@addInterceptor chain.proceed(
                         request.newBuilder()
-                            .addHeader("token", BuildConfig.API_KEY)
                             .build()
                     )
                 }

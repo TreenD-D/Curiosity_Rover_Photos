@@ -5,10 +5,12 @@ import android.content.Context
 import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.achulkov.curiosityroverphotos.R
 
 import com.achulkov.curiosityroverphotos.data.models.RoverPhoto
 import com.achulkov.curiosityroverphotos.databinding.ListPhotosItemBinding
@@ -56,7 +58,16 @@ class PhotoListAdapter @Inject constructor(
         val photo: RoverPhoto = getItem(position)
         val isSelected = mSelectedItems.get(position)
 
+        if(isSelected) holder.binding.mainConstraint.setBackgroundColor(ResourcesCompat.getColor(holder.itemView.resources, R.color.yellow, null))
+        else holder.binding.mainConstraint.setBackgroundColor(ResourcesCompat.getColor(holder.itemView.resources, R.color.white, null))
 
+        holder.binding.photoId.text = photo.id.toString()
+
+        imageLoader
+            .load(photo.img_src)
+            .placeholder(R.drawable.missing_image)
+            .fit()
+            .into(holder.binding.photo)
 
 
 
