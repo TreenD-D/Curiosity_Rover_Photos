@@ -9,6 +9,8 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.achulkov.curiosityroverphotos.R
 import com.achulkov.curiosityroverphotos.data.models.RoverPhoto
 import com.achulkov.curiosityroverphotos.databinding.FragmentPhotoListBinding
@@ -59,7 +61,45 @@ class PhotoListFragment : Fragment(), PhotoListAdapter.AdapterItemClickListener,
         viewModel.photos.observe(viewLifecycleOwner, {list ->
             adapter.submitList(list)
             currentListSize = list.size
+
+            //get last photo sol and use it as starting index for pagination(in case we already have big list in DB)
+            viewModel.currentSolIndex.value = viewModel.solsWithImagesList.value?.indexOf(viewModel.solsWithImagesList.value?.find {
+                it.sol == list[currentListSize-1].sol
+            })
+
+            if(currentListSize < 20 && viewModel.isLoading.value == false) {
+                viewModel.currentSolIndex.value = viewModel.currentSolIndex.value?.plus(1)
+                viewModel.currentSolIndex.value?.let {
+                    if(viewModel.solsWithImagesList.value?.get(it)?.sol != null){
+                        viewModel.getSolPhotos(
+                            viewModel.solsWithImagesList.value?.get(it)?.sol!!
+                        )
+                        viewModel.isLoading.value = true
+                    }
+                }
+            }
         })
+
+        binding.recyclerPhotos.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy > 0) { //check for scroll down
+                    val visibleItemCount = (binding.recyclerPhotos.layoutManager as GridLayoutManager).childCount
+                    val totalItemCount = (binding.recyclerPhotos.layoutManager as GridLayoutManager).itemCount
+                    val pastVisibleItems = (binding.recyclerPhotos.layoutManager as GridLayoutManager).findFirstVisibleItemPosition()
+
+                    if (visibleItemCount + pastVisibleItems >= totalItemCount) {
+                        if(viewModel.currentSolIndex.value!! <= viewModel.solsWithImagesList.value?.size!! && viewModel.isLoading.value == false){
+                            viewModel.currentSolIndex.value = viewModel.currentSolIndex.value?.plus(1)
+                            viewModel.isLoading.postValue(true)
+                            viewModel.currentSolIndex.value?.let { viewModel.getSolPhotos(viewModel.solsWithImagesList.value?.get(it)?.sol!!) }
+                        }
+                    }
+                }
+            }
+
+        })
+
+
 
     }
 

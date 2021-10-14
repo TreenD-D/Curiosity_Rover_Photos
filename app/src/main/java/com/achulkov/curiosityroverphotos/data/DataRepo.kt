@@ -17,4 +17,5 @@ interface DataRepo {
     fun getDeletedPhotos(): Observable<List<Int>>
     fun getPhotos(sol: Int, deletedPhotos: List<Int>): Observable<List<RoverPhoto>>
     fun getDbPhotos(): Observable<List<RoverPhoto>>
+    fun getDBSolsInfoList(): Observable<List<RoomSolInfo>>
 }

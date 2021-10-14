@@ -21,6 +21,13 @@ class RPhotosDataRepo @Inject constructor(
     override fun getRoverManifest(): Observable<RoomRoverInfo> {
         return api.getCuriosityManifest()
             .retry(3L)
+            .doOnNext { manifest ->
+                val solsWithPhotosList = mutableListOf<RoomSolInfo>()
+                for(solPhotosInfo in manifest.photo_manifest.photos){
+                    solsWithPhotosList.add(RoomSolInfo(solPhotosInfo.sol, solPhotosInfo.total_photos))
+                }
+                db.solInfo().insert(solsWithPhotosList)
+            }
             .map { manifest ->
                 RoomRoverInfo(manifest.photo_manifest.name,
                     manifest.photo_manifest.landing_date, manifest.photo_manifest.launch_date,
@@ -74,6 +81,12 @@ class RPhotosDataRepo @Inject constructor(
                 db.photos().deleteSingleEntry(photo.id)}
             .subscribeOn(Schedulers.io())
 
+    }
+
+    override fun getDBSolsInfoList() : Observable<List<RoomSolInfo>> {
+        return db.solInfo().fetchAll()
+            .switchIfEmpty{ emptyList<RoomSolInfo>() }
+            .subscribeOn(Schedulers.io())
     }
 
 

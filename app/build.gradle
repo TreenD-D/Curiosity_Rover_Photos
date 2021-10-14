@@ -19,7 +19,7 @@ android {
 
         buildConfigField "String", "API_ENDPOINT", '"https://api.nasa.gov/mars-photos/api/v1/"'
 
-        buildConfigField "String", "API_KEY", '"AHjzHrAXp0Db4tbXBNHRO1S3j1YOSfLkOYHkfikG"'
+        buildConfigField "String", "API_KEY", '"bGEwSQSKkj0HimQhVRgqvOY73bdkY69Uhh1d6of9"'
 
     }
 
