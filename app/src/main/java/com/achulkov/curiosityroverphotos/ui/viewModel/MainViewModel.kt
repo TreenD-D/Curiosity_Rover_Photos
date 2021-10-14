@@ -106,6 +106,7 @@ class MainViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 solsWithImagesList.postValue(it)
+                solsWithImagesList.value?.get(0)?.sol?.let { it1 -> getSolPhotos(it1) }
             })
     }
 
